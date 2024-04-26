@@ -6,7 +6,7 @@
 /*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:11 by romina            #+#    #+#             */
-/*   Updated: 2024/04/26 12:21:13 by romina           ###   ########.fr       */
+/*   Updated: 2024/04/26 13:06:33 by romina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,17 +180,14 @@ void	parantes_error(char *str);
 void	unclosed_error(char *str);
 void	*syntax_error(char *str);
 void	*chdir_error(char *str);
-void	not_valid_error(char *name);
-void	error_numeric( char *str, char *cmd_name);
-void	error_many_args(char *cmd_name);
-void	export_error(char *name);
+
 
 
 /*free*/
 
 /*FREE_ENV*/
 void	free_env(t_env **env);
-void	free_env_unset(t_env *env);
+
 
 /*FREE_PARSING*/
 void	*free_token(t_token *tokens);
