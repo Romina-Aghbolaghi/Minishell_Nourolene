@@ -1,0 +1,54 @@
+
+
+void	*init_data(t_data *data, t_env *env);
+    void	init_data(t_data *data, t_env *env);
+
+
+=====================================================
+
+
+void	*init_execve_args(t_arg *arg, t_env *env);
+    void	init_execve_args(t_arg *arg, t_env *env);
+
+
+=====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+split_tokens   soal daram bara free kardan
+
+
+
+
+
+!age quote dorost kar nakone az word.c az function :
+
+void	add_word_token(t_token **tokens, t_type type, char *expand_str)
+and
+void	remove_quotes(char *str, char quote_flag, int *i, int *j)
+
