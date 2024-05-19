@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   initialization2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:15:09 by romina            #+#    #+#             */
-/*   Updated: 2024/04/25 18:29:07 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/19 16:22:03 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
 t_redir	*init_redir(t_type type, char *file_name)
 {
@@ -24,45 +24,66 @@ t_redir	*init_redir(t_type type, char *file_name)
 	new->next = NULL;
 	return (new);
 }
-static int	cmds_number(t_parse *parse_list)
+
+static int	env_size(t_env *env)
 {
-	t_parse	*tmp;
-	int		len;
+	int	len;
 
 	len = 0;
-	tmp = parse_list;
-	while (tmp)
+	while (env)
 	{
 		len++;
-		tmp = tmp->next;
+		env = env->next;
 	}
-	// printf("cmd_num  %d\n", len);
 	return (len);
 }
 
-void	init_cmd_line(t_cmd_line *cmd_info, t_parse *parse_list)
+char	**duplicate_envp(t_env *env)
 {
-	cmd_info->fd[0] = -1;
-	cmd_info->fd[1] = -1;
-    cmd_info-> red_input= 0;
-	cmd_info->red_output = 1;
-    cmd_info->cmd_index = -1;
-	cmd_info->cmds_num = cmds_number(parse_list);
-    cmd_info->exec_path = NULL;
-    cmd_info->path = NULL;
+	int		i;
+	char	**envp;
+	t_env	*head;
+
+	i = 0;
+	envp = NULL;
+	if (!env)
+		return (NULL);
+	head = env->next;
+	envp = (char **)malloc((env_size(env) + 2) * sizeof(char *));
+	if (!envp)
+		return (perror("malloc failed"), NULL);
+	while (head)
+	{
+		envp[i] = ft_strdup(head->str);
+		head = head->next;
+		i++;
+	}
+	envp[i] = NULL;
+	return (envp);
 }
 
-// t_here_doc	*init_heredoc(void):
-// {
-//     t_here_doc  *here_doc;
-    
-//     here_doc = malloc(sizeof(t_here_doc));
-// 	if (!here_doc)
-// 	{
-// 		perror("Malloc failure in open heredoc");
-// 		return (NULL);
-// 	}
-// 	here_doc->read_fd = STDIN_FILENO;
-// 	here_doc->next = NULL;
-//     return (here_doc);
-// }
+t_cl_info	*init_cl_info(t_env *env, t_parse *parse_list)
+{
+	t_cl_info	*exec;
+
+	if (!parse_list)
+		return (NULL);
+	exec = malloc(sizeof(t_cl_info));
+	if (!exec)
+		return (perror("malloc"), NULL);
+	exec->heredoc_file = NULL;
+	exec->file_failed = NULL;
+	exec->exec_path = NULL;
+	exec->path = NULL;
+	exec->argv = NULL;
+	exec->envp = NULL;
+	exec->red_input = 0;
+	exec->red_output = 1;
+	exec->next = NULL;
+	if (parse_list && parse_list->cmd && parse_list->cmd->str)
+		exec->argv = get_cmd_args(parse_list);
+	exec->envp = duplicate_envp(env);
+	exec->red_input = redirection_input(exec, parse_list);
+	exec->red_output = redirection_output(parse_list);
+	return (exec);
+}

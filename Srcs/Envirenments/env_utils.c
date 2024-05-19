@@ -3,36 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:22:18 by romina            #+#    #+#             */
-/*   Updated: 2024/04/25 19:37:32 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/19 16:17:52 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
-char	*env_var_name(char *str)
+t_env	*add_env_node(char *str)
 {
-	char	*var_name;
+	t_env	*new;
+	int		index;
 
-	var_name = ft_substr(str, 0, env_var_name_len(str));
-	if (var_name == NULL)
+	index = ft_strchr(str, '=') - str;
+	new = malloc(sizeof(t_env));
+	if (!new)
+	{
+		free(new);
 		return (NULL);
-	return (var_name);
-}
-
-int	env_var_name_len(char *var_name)
-{
-	int	i;
-
-	i = 0;
-	if (*var_name == '?' || ft_isdigit(*var_name))
-		return (1);
-	while (var_name[i] == '_' || ft_isalpha(var_name[i])
-		|| ft_isdigit(var_name[i]))
-		i++;
-	return (i);
+	}
+	new->str = ft_strdup(str);
+	new->var_name = ft_substr(str, 0, env_var_len(str));
+	if (!index)
+		new->var_value = NULL;
+	else
+		new->var_value = ft_substr(str, index + 1, ft_strlen(str));
+	new->next = NULL;
+	return (new);
 }
 
 char	*env_var_value(t_env *env, char *var_name)
@@ -43,7 +42,7 @@ char	*env_var_value(t_env *env, char *var_name)
 		return (NULL);
 	head = env->next;
 	while (head)
-	{ 
+	{
 		if (var_name[0] == '?')
 			return (ft_itoa(g_status));
 		else if (!ft_strcmp(var_name, head->var_name))
@@ -55,4 +54,54 @@ char	*env_var_value(t_env *env, char *var_name)
 		head = head->next;
 	}
 	return (ft_strdup("\0"));
+}
+
+char	*find_path(t_env *env)
+{
+	char	*path;
+	t_env	*head;
+
+	path = NULL;
+	if (!env)
+		return (NULL);
+	head = env->next;
+	while (head)
+	{
+		if (ft_strcmp(head->var_name, "PATH") == 0)
+		{
+			if (head->str)
+				path = head->str;
+			else
+				path = ft_strdup("\0");
+		}
+		head = head->next;
+	}
+	return (path);
+}
+
+void	copy_t_env(t_env *src, t_env **dest)
+{
+	t_env	*new_node;
+	t_env	*current;
+
+	while (src)
+	{
+		new_node = (t_env *)malloc(sizeof(t_env));
+		if (!new_node)
+			return (perror("malloc"));
+		new_node->var_name = ft_strdup(src->var_name);
+		new_node->var_value = ft_strdup(src->var_value);
+		new_node->str = ft_strdup(src->str);
+		new_node->next = NULL;
+		if (*dest == NULL)
+			*dest = new_node;
+		else
+		{
+			current = *dest;
+			while (current->next != NULL)
+				current = current->next;
+			current->next = new_node;
+		}
+		src = src->next;
+	}
 }

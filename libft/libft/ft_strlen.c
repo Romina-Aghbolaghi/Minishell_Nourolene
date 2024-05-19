@@ -6,7 +6,7 @@
 /*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:07:07 by rmohamma          #+#    #+#             */
-/*   Updated: 2024/07/25 15:06:37 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:50:26 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i])
-		i++;
+	if (s)
+	{
+		while (s[i])
+			i++;
+	}
 	return (i);
 }
