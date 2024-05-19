@@ -6,7 +6,7 @@
 #    By: romina <romina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 19:45:57 by rmohamma          #+#    #+#              #
-#    Updated: 2024/04/21 16:06:17 by romina           ###   ########.fr        #
+#    Updated: 2024/05/04 22:18:16 by romina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g3
 all:	$(NAME)
 
 %.o: %.c $(HEADER)
+		@mkdir -p $(@D)
 		@$(CC) -c $(CFLAGS) -o $@ $<
 		
 		

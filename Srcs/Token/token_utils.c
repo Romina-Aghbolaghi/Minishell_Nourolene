@@ -6,11 +6,11 @@
 /*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:26:30 by romina            #+#    #+#             */
-/*   Updated: 2024/04/21 16:21:52 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/17 17:36:18 by romina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
 int	ft_isspace(char c)
 {
@@ -21,8 +21,7 @@ int	ft_isspace(char c)
 
 int	skip_white_spaces(char *s, int i)
 {
-	while (ft_isspace(s[i]) && s[i] != '\0')
+	while (s[i] && ft_isspace(s[i]))
 		i++;
 	return (i);
 }
-

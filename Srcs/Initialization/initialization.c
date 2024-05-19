@@ -6,13 +6,13 @@
 /*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:35:52 by romina            #+#    #+#             */
-/*   Updated: 2024/04/24 15:32:53 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/17 17:27:52 by romina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
-t_env	*init_env(char **envp)
+static t_env	*init_env(char **envp)
 {
 	t_env	*new;
 
@@ -27,14 +27,13 @@ t_env	*init_env(char **envp)
 	return (new);
 }
 
-void	init_data(t_data *data, t_env *env)
+void	init_data(t_data *data, char **envp)
 {
-	data->env = env;
-	// data->arg = NULL;
+	data->env = init_env(envp);
+	data->prompt = NULL;
 	data->tokens = NULL;
 	data->parse_list = NULL;
-	data->cl_info = NULL;
-	// data->here_doc = NULL;
+	data->exec = NULL;
 }
 
 t_token	*init_token(void)
@@ -75,12 +74,3 @@ t_cmd	*init_cmd(char *str)
 	new->next = NULL;
 	return (new);
 }
-
-
-/*for execution part*/
-// void	init_execve_args(t_arg *arg, t_env *env)
-// {
-// 	arg->argv = NULL;
-// 	arg->n_args = 0;
-// 	arg->envp = duplicate_envp(env);
-// }

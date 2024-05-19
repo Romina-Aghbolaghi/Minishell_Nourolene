@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:17:54 by romina            #+#    #+#             */
-/*   Updated: 2024/04/24 17:54:30 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/19 16:22:33 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
 static void	add_cmd(t_cmd **head, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
-    tmp = NULL;
+	tmp = NULL;
 	if (*head == NULL)
 		*head = cmd;
 	else
@@ -34,36 +34,16 @@ void	create_cmd(t_token *tokens, t_parse *parse_list)
 
 	cmd = init_cmd(tokens->value);
 	add_cmd(&parse_list->cmd, cmd);
-	/*PRINT THE RESUALT*/
-	// printf("cmd: [ %s ]\n", cmd->str);
-	
 }
 
-
-void	*create_pipe(t_token **token, t_parse **parse_list)
+void	*create_pipe(t_parse **parse_list)
 {
 	t_parse	*node;
 
-	if ((((*token)->type) == PIPE)
-		&& (!(*token)->next
-		|| ((*token)->next && ((*token)->next->type) == PIPE)))
-		return (syntax_error((*token)->value));
-	else if ((((*token)->type) == PIPE) && (((*token)->next->type) == PIPE)
-		&& !(*token)->next->next)
-		return (syntax_error("||"));
-	else
-	{
-		node = init_parse();
-		(*parse_list)->next = node;
-	}
+	node = init_parse();
+	(*parse_list)->next = node;
 	if (node)
 		(*parse_list) = (*parse_list)->next;
-
-	// /*PRINT THE RESUALT*/
- 	// ft_putstr_fd(PURPLE_COLOR, 1);
- 	// printf("pipe-type: [ %u ]\n\n", (*token)->type);
- 	// ft_putstr_fd(RESET_PURPLE_COLOR, 1);
-	
 	return (node);
 }
 
@@ -86,18 +66,11 @@ t_redir	*create_redir(t_token *tokens, t_parse *parse_list)
 {
 	t_redir	*node;
 
-	if (!tokens->next || tokens->next->type != WORD)
-		return (syntax_error("newline"));
+	node = NULL;
 	node = init_redir(tokens->type, tokens->next->value);
 	if (tokens->type == REDIR_IN || tokens->type == HEREDOC)
 		add_redir(&parse_list->red_in, node);
 	else
 		add_redir(&parse_list->red_out, node);
-	// /*PRINT THE RESUALT*/
-	// ft_putstr_fd(PURPLE_COLOR, 1);
-	// printf("redir-type: [ %d ]\n", node->type);
-	// printf("redir-filename: [ %s ]\n\n", node->file_name);
-	// ft_putstr_fd(RESET_PURPLE_COLOR, 1);
-	
 	return (node);
 }

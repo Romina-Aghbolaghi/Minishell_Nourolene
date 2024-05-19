@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_token.c                                         :+:      :+:    :+:   */
+/*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romina <romina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:32:25 by romina            #+#    #+#             */
-/*   Updated: 2024/04/20 16:48:54 by romina           ###   ########.fr       */
+/*   Updated: 2024/05/19 16:30:20 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/included.h"
+#include "../../Includes/included.h"
 
 t_token	*tokening(t_env *env, char *line)
 {
@@ -31,7 +31,8 @@ t_token	*tokening(t_env *env, char *line)
 	return (tokens);
 }
 
-static void	token_process(t_env *env, t_token **tokens, t_type type, char *splited_line)
+static void	token_process(t_env *env, t_token **tokens, t_type type,
+		char *splited_line)
 {
 	if (type == WORD)
 		add_word_token(tokens, type, expand_word(env, splited_line));
@@ -41,14 +42,14 @@ static void	token_process(t_env *env, t_token **tokens, t_type type, char *split
 
 int	split_line(t_env *env, char *line, t_token **tokens)
 {
-	int				s_str;
-	int				e_str;
-	t_type			type;
+	int		s_str;
+	int		e_str;
+	t_type	type;
 
 	e_str = 0;
 	type = 0;
 	if (line)
-	{	
+	{
 		while (line[e_str])
 		{
 			e_str = skip_white_spaces(line, e_str);
@@ -59,16 +60,16 @@ int	split_line(t_env *env, char *line, t_token **tokens)
 				e_str = get_operator_index(line, e_str, &type);
 			else
 				e_str = get_token_index(line, e_str, WORD, &type);
-			token_process(env, tokens, type, ft_substr(line, s_str,
-							(e_str - s_str + 1)));
+			token_process(env, tokens, type, ft_substr(line, s_str, (e_str
+						- s_str + 1)));
 			e_str++;
 		}
 		return (1);
 	}
-	return (0);		
+	return (0);
 }
 
-static t_token	*create_token(t_type type, char *value)
+static t_token	*new_token_node(t_type type, char *value)
 {
 	t_token	*new;
 
@@ -85,17 +86,15 @@ void	add_token(t_token **head, t_type type, char *value)
 	if (!*head)
 	{
 		free(*head);
-		*head = create_token(type, value);
+		*head = new_token_node(type, value);
 	}
 	else
 	{
 		tmp = *head;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = create_token(type, value);
+		tmp->next = new_token_node(type, value);
 		if (!tmp->next)
 			return ;
 	}
 }
-
-
