@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nouabdul <nouabdul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 16:55:30 by romina            #+#    #+#             */
-/*   Updated: 2024/05/22 14:06:59 by nouabdul         ###   ########.fr       */
+/*   Created: 2024/04/25 16:55:30 by nouabdul          #+#    #+#             */
+/*   Updated: 2024/05/22 16:56:59 by nouabdul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	export_exec(char *cmd, t_env *env)
 		if (value)
 			add_var_exec(env, cmd, value);
 	}
-	else if(cmd[0] == '=')
+	else if (cmd[0] == '=')
 	{
 		export_error(cmd);
 		return (1);

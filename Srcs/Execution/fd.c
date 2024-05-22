@@ -6,7 +6,7 @@
 /*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:53:13 by romina            #+#    #+#             */
-/*   Updated: 2024/05/22 15:34:36 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:19:16 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	copy_std_files(t_data *data)
 	return ;
 }
 
-void	red_std_to_io(t_data *data, t_cl_info *exec)
+void	back_red_io_to_original_io(t_data *data, t_cl_info *exec)
 {
 	if (exec->red_input > 2)
 	{
