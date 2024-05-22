@@ -6,7 +6,7 @@
 /*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:24:44 by romina            #+#    #+#             */
-/*   Updated: 2024/05/19 16:19:12 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:34:36 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	one_cmd(t_data *data, t_cl_info *temp)
 
 	status = 127;
 	copy_std_files(data);
-	back_red_io_to_original_io(data, temp);
+	red_std_to_io(data, temp);
 	status = ft_builtin(data->exec, data->env, data);
 	back_to_original_io(data, temp);
 	return (status);

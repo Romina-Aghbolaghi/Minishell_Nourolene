@@ -6,14 +6,14 @@
 #    By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:55:38 by cbiteau           #+#    #+#              #
-#    Updated: 2024/05/19 11:36:37 by rmohamma         ###   ########.fr        #
+#    Updated: 2024/05/22 15:59:23 by rmohamma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 
-AUTHOR	=  Romina - The MinHell
-DATE	= 21/04/2024
+AUTHOR	=  Romina - Nourolene
+DATE	= 23/05/2024
 
 SRC_DIR		=	Srcs/
 OBJ_DIR		=	objs/
@@ -47,7 +47,7 @@ DEP			=	$(OBJ:.o=.d)
 CC			=	cc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g3
-CPPFLAGS	=	-I/usr/local/include -I$(LIBFT_PATH) -I$(INC_DIR) 
+INCLUDEFLAGS	=	-I/usr/local/include -I$(LIBFT_PATH) -I$(INC_DIR) 
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
 
@@ -111,12 +111,12 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH) all
 	
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(READLINE_LIB) -o $@ $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) $(INCLUDEFLAGS) $(READLINE_LIB) -o $@ $(OBJ) $(LIBFT)
 	@echo  "$(GREEN)Minishell: Mandatory created!$(DEFAULT)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -MMD -MP -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDEFLAGS) -MMD -MP -o $@ -c $<
 
 -include $(DEP)
 
