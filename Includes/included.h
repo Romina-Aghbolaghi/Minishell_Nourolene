@@ -6,7 +6,7 @@
 /*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:22:11 by romina            #+#    #+#             */
-/*   Updated: 2024/05/19 16:31:24 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:29:13 by rmohamma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@
 # define RED_COLOR "\e[0;31m"
 # define RESET_RED_COLOR "\e[0m"
 # define HEREDOC_CMD "\e[0;31mheredoc> \e[0m"
-
-/*CONSTANTS*/
-# define TRUE 1
-# define FAULSE 0
-# define OTHER -1
-# define SUCCES ((void *)1)
 
 extern int				g_status;
 
