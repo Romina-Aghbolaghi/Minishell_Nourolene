@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nouabdul <nouabdul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:55:30 by romina            #+#    #+#             */
-/*   Updated: 2024/05/19 16:15:00 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:06:59 by nouabdul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ static int	export_exec(char *cmd, t_env *env)
 	char	*value;
 
 	value = NULL;
-	if (ft_str_chr(cmd, '='))
+	if (cmd[0] != '=' && ft_str_chr(cmd, '='))
 	{
 		value = catch_value(cmd);
 		if (value)
 			add_var_exec(env, cmd, value);
-		else
-		{
-			export_error(cmd);
-			return (1);
-		}
+	}
+	else if(cmd[0] == '=')
+	{
+		export_error(cmd);
+		return (1);
 	}
 	else if (!ft_str_chr(cmd, '=') && ft_strcmp("export", cmd))
 		add_var_exec(env, cmd, value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nouabdul <nouabdul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:40:01 by romina            #+#    #+#             */
-/*   Updated: 2024/05/19 16:00:00 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:01:00 by nouabdul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ static void	unset_exec(char *variable, t_env *env)
 static int	is_valid(char *variable)
 {
 	if (ft_strchr(variable, '='))
-	{
-		not_valid_error(variable);
 		return (0);
-	}
 	return (1);
 }
 

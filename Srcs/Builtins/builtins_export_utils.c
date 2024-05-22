@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmohamma <rmohamma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nouabdul <nouabdul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:59:13 by romina            #+#    #+#             */
-/*   Updated: 2024/05/19 15:59:47 by rmohamma         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:05:08 by nouabdul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	add_var_exec(t_env *env, char *cmd, char *value)
 		free(var->var_value);
 		var->var_value = ft_strdup(value);
 	}
-	else if (!var && ft_strcmp(cmd, "_"))
+	else if (!var && cmd[0] != '=' && ft_strcmp(cmd, "_"))
 	{
 		new_var = create_var(cmd, value);
 		add_new_var(env, new_var);
